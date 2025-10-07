@@ -9,7 +9,6 @@ export default function Navbar() {
   //      * <Link to="#" onClick = {() => logout()}>Log out</Link>
   //     */
   // }
-
   return (
     <nav>
       <div className="left-navbar">
