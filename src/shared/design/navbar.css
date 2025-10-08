@@ -1,0 +1,17 @@
+.default-navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-navbar,
+.right-navbar {
+  flex: 45 1 45vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  flex: 10 1 10vw;
+}
