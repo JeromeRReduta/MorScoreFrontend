@@ -1,11 +1,9 @@
-import useApi from "../../../shared/stores/api/ApiContext";
-import postTextFileForScoringAsync from "../services/postTextFileForScoringAsync.js";
+import "../../../base.css";
+import "../design/scoring-page.css";
 import MorScoreResultStore from "../stores/MorScoreResultStore.jsx";
+
 export default function ScoringPage() {
   const { response, loading, scoreTextFileAsync } = MorScoreResultStore();
-  const isInvalid = !!response?.error;
-  console.log("scoreTextFileAsync in this thing is", scoreTextFileAsync);
-  console.log("data: ", response?.data);
   return (
     <>
       <OutputMessage
