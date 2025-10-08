@@ -2,8 +2,6 @@ import "../../../base.css";
 import "../design/scoring-page.css";
 import { useState } from "react";
 import MorScoreResultStore from "../stores/MorScoreResultStore.jsx";
-import JwtStore from "../../users/stores/JwtStore.jsx";
-import useJwt from "../../users/stores/JwtStore.jsx";
 
 export default function ScoringPage() {
   const { response, loading, scoreTextFileAsync, publishTextFileAsync } =
@@ -51,17 +49,9 @@ function OutputMessage({ morScoreResult, error, loading }) {
 function FileInput({ scoreTextFileAsync, publishTextFileAsync }) {
   const [shouldSave, setShouldSave] = useState(false);
   const [isPublic, setIsPublic] = useState(false);
-  const [fileName, setFileName] = useState(null);
-  const { response } = useJwt();
-  const token = response?.data;
-  console.log(`data:
-    response: ${response}
-    isPublic: ${isPublic}
-    token: ${token}
-    `);
   const fileData = new FileReader();
   fileData.onloadend = shouldSave
-    ? async (e) => await publishTextFileAsync(e, isPublic, token, fileName)
+    ? async (e) => await publishTextFileAsync(e, isPublic)
     : async (e) => await scoreTextFileAsync(e);
   return (
     <>
@@ -70,7 +60,6 @@ function FileInput({ scoreTextFileAsync, publishTextFileAsync }) {
         type="file"
         accept=".txt"
         onChange={(e) => {
-          setFileName(e.target.files[0].name);
           fileData.readAsText(e.target.files[0]);
         }}
       />

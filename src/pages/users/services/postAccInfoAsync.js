@@ -1,7 +1,8 @@
 import ApiResponse from "../../../shared/entities/ApiResponse";
 
 export default async function postAccInfoAsync({ accInfo, endpoint }) {
-  const port = "https://mor-score-api.onrender.com"; // TODO: make this configurable
+  const port = "http://mor-score-api.onrender.com";
+  //   const port = "https://mor-score-api.onrender.com"; // TODO: make this configurable
   const url = new URL(port + "/users" + endpoint);
   const request = {
     method: "POST",
