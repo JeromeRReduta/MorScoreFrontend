@@ -23,6 +23,8 @@ export default function JwtStore() {
   };
 
   const registerAsync = async ({ email, name, password }) => {
+    console.log("setting loading to true");
+
     setLoading(true);
     let response;
     try {
@@ -36,6 +38,7 @@ export default function JwtStore() {
     }
     setResponse(response);
     setLoading(false);
+    console.log("setting loading to false");
   };
 
   const logout = () => setResponse(null);

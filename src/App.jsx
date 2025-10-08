@@ -3,6 +3,7 @@ import BaseLayout from "./shared/components/layout/BaseLayout";
 import ErrorPage from "./shared/components/errors/ErrorPage";
 import ScoringPage from "./pages/scoring/components/ScoringPage";
 import LoginPage from "./pages/users/components/LoginPage.jsx";
+import RegisterPage from "./pages/users/components/RegisterPage.jsx";
 export default function App() {
   return (
     <Routes>
@@ -17,7 +18,8 @@ export default function App() {
       </Route>
       <Route path="/users" element={<BaseLayout />}>
         <Route path="login" element={<LoginPage />} /> {/** Login page */}
-        <Route path="register" element={null} /> {/** Register page */}
+        <Route path="register" element={<RegisterPage />} />{" "}
+        {/** Register page */}
         <Route path="account" element={null} /> {/** Account page */}
       </Route>
     </Routes>

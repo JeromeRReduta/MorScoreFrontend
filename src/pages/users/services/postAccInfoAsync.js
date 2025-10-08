@@ -8,7 +8,10 @@ export default async function postAccInfoAsync({ accInfo, endpoint }) {
     },
     body: JSON.stringify(accInfo),
   };
+  console.log("request is", request);
+
   const response = await fetch(url, request);
+  console.log("response is", response);
   if (!response.ok) {
     throw new Error("error in request!");
   }
