@@ -7,7 +7,7 @@ export default async function postTextFileToDb({
   token,
   title,
 }) {
-  const port = "http://mor-score-api.onrender.com";
+  const port = "https://mor-score-api.onrender.com";
   //   const port = "https://mor-score-api.onrender.com"; // TODO: make this configurable
 
   const url = new URL(`${port}/save-your-text`);
