@@ -1,14 +1,26 @@
 class MorScoreResultDTO {
-  category;
+  #category;
 
-  score;
+  #score;
 
-  offenses;
+  #offenses;
 
   constructor({ category, score, offenses }) {
-    this.category = category;
-    this.score = score;
-    this.offenses = offenses;
+    this.#category = category;
+    this.#score = score;
+    this.#offenses = offenses;
+  }
+
+  get category() {
+    return this.#category;
+  }
+
+  get score() {
+    return this.#score;
+  }
+
+  get offenses() {
+    return this.#offenses;
   }
 }
 

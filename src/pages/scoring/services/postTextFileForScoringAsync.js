@@ -1,5 +1,5 @@
+import ApiResponse from "../../../shared/entities/ApiResponse";
 import createMorScoreResultDTO from "../entities/MorScoreResult";
-import MorScoreResult from "../entities/MorScoreResult";
 
 export default async function postTextFileForScoringAsync({ algorithm, text }) {
   const port = "http://localhost:3000";
@@ -14,17 +14,12 @@ export default async function postTextFileForScoringAsync({ algorithm, text }) {
       text,
     }),
   };
-  console.log("request is", request);
-
   const response = await fetch(url, request);
   if (!response.ok) {
-    throw new Error("Error in request");
+    throw new Error("error in request!");
   }
   const content = await response.text();
-  console.log("content", content);
-  console.log("parsed", JSON.parse(content));
   const { category, score, offenses } =
     content.length > 0 ? JSON.parse(content) : {};
-
   return createMorScoreResultDTO({ category, score, offenses });
 }
