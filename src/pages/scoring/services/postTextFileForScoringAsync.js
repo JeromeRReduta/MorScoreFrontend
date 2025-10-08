@@ -1,3 +1,6 @@
+import createMorScoreResultDTO from "../entities/MorScoreResult";
+import MorScoreResult from "../entities/MorScoreResult";
+
 export default async function postTextFileForScoringAsync({ algorithm, text }) {
   const port = "http://localhost:3000";
   const url = new URL(`${port}/get-your-morscore`);
@@ -18,5 +21,10 @@ export default async function postTextFileForScoringAsync({ algorithm, text }) {
     throw new Error("Error in request");
   }
   const content = await response.text();
-  return content.length > 0 ? JSON.parse(content) : {};
+  console.log("content", content);
+  console.log("parsed", JSON.parse(content));
+  const { category, score, offenses } =
+    content.length > 0 ? JSON.parse(content) : {};
+
+  return createMorScoreResultDTO({ category, score, offenses });
 }
