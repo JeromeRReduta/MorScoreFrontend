@@ -1,6 +1,6 @@
 import { useState } from "react";
-import postAccInfoAsync from "../../services/postAccInfoAsync";
-import ApiResponse from "../../entities/ApiResponse";
+import postAccInfoAsync from "../services/postAccInfoAsync";
+import ApiResponse from "../../../shared/entities/ApiResponse";
 
 export default function JwtStore() {
   const [response, setResponse] = useState(null);

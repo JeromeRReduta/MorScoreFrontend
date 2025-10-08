@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router";
-import useAuth from "../../../shared/stores/api/JwtStore.jsx";
+import useAuth from "../stores/JwtStore.jsx";
 
 export default function LoginPage() {
   const { response, loginAsync } = useAuth();
