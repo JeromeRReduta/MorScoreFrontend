@@ -4,8 +4,14 @@ import JwtStore from "../stores/JwtStore";
 export default function RegisterPage() {
   const { response, loading, registerAsync } = JwtStore();
   const navigateTo = useNavigate();
-  const handleRegister = (formData) => {
-    const response = registerAsync({
+  const handleRegister = async (formData) => {
+    console.log(
+      "formData:",
+      formData.get("email"),
+      formData.get("password"),
+      formData.get("name")
+    );
+    const response = await registerAsync({
       // for some reason if I DON'T await it works properly
       email: formData.get("email"),
       password: formData.get("password"),
@@ -15,13 +21,11 @@ export default function RegisterPage() {
       navigateTo("/");
     }
   };
-  const buttonMessage = loading ? "Registering..." : "MY BONES";
-  console.log("loading here is", loading);
-  console.log("buttonMessage is", buttonMessage);
+  const buttonMessage = loading ? "Registering..." : "Register";
 
   return (
     <>
-      <form action={(formData) => handleRegister(formData)}>
+      <form action={handleRegister}>
         <label htmlFor="email">Email</label>
         <input type="text" name="email" autoComplete="on" required />
 
@@ -37,7 +41,7 @@ export default function RegisterPage() {
         <div className="error-message">{response.error.message}</div>
       )}
       <div>
-        Been here before? <Link to="/users/register">Login here.</Link>
+        Been here before? <Link to="/users/login">Login here.</Link>
       </div>
     </>
   );

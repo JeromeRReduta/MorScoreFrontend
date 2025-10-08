@@ -28,14 +28,18 @@ export default function JwtStore() {
     setLoading(true);
     let response;
     try {
+      console.log("beginning try clause");
       const data = await postAccInfoAsync({
         accInfo: { email, name, password },
         endpoint: "/register",
       });
+      console.log("data here is", data);
       response = new ApiResponse({ success: true, data, error: null });
     } catch (e) {
+      console.log("end up here w/ error", e);
       response = new ApiResponse({ success: false, data: null, error: e });
     }
+    console.log("response in store is", response);
     setResponse(response);
     setLoading(false);
     console.log("setting loading to false");
