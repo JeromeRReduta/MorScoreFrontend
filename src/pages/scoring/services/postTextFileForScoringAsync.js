@@ -1,4 +1,3 @@
-import ApiResponse from "../../../shared/entities/ApiResponse";
 import createMorScoreResultDTO from "../entities/MorScoreResult";
 
 export default async function postTextFileForScoringAsync({ algorithm, text }) {

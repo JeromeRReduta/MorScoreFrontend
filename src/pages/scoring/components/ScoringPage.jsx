@@ -46,8 +46,6 @@ function FileInput({ scoreTextFileAsync }) {
   fileData.onloadend = async (e) => {
     await scoreTextFileAsync(e);
   };
-  console.log("score text file here is", scoreTextFileAsync);
-
   return (
     <>
       <div className="input-here">INPUT YOUR TEXT FILE HERE</div>
