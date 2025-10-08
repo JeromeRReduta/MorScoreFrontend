@@ -12,11 +12,6 @@
   align-items: center;
 }
 
-.left-navbar > *,
-.right-navbar > * {
-  padding: 1rem;
-}
-
 .title {
   flex: 10 1 10vw;
 }
