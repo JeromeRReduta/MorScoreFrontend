@@ -6,16 +6,16 @@ export default function Navbar() {
   return (
     <nav className="default-navbar">
       <div className="left-navbar">
-        <Link to="#">About</Link>
-        <Link to="#">Get Your MorScore</Link>
-        <Link to="#">Lookup</Link>
-        <Link to="#">Challenge Mode</Link>
+        <Link to="/about">About</Link>
+        <Link to="/get-your-morscore">Get Your MorScore</Link>
+        <Link to="/lookup">Lookup</Link>
+        <Link to="/challenge">Challenge Mode</Link>
       </div>
       <div className="title">
-        <b>MorScore.com</b>
+        <Link to="/">MorScore.com</Link>
       </div>
       <div className="right-navbar">
-        <Link to="#">Sign up</Link>
+        <Link to="/users/login">Sign in</Link>
       </div>
     </nav>
   );

@@ -1,7 +1,7 @@
 import createMorScoreResultDTO from "../entities/MorScoreResult";
 
 export default async function postTextFileForScoringAsync({ algorithm, text }) {
-  const port = "http://localhost:3000";
+  const port = "http://localhost:3000"; // TODO: make this configurable
   const url = new URL(`${port}/get-your-morscore`);
   const request = {
     method: "POST",
