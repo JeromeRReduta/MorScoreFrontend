@@ -5,7 +5,7 @@ export default function LoginPage() {
   const { response, loginAsync } = useJwt();
   const navigateTo = useNavigate();
   const handleLogin = async (formData) => {
-    loginAsync({
+    await loginAsync({
       email: formData.get("email"),
       password: formData.get("password"),
     });
@@ -13,7 +13,6 @@ export default function LoginPage() {
       navigateTo("/");
     }
   };
-  console.log("response is", response);
 
   let buttonMessage;
 

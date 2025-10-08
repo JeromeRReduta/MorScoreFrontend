@@ -7,7 +7,9 @@ export default async function postTextFileToDb({
   token,
   title,
 }) {
-  const port = "https://mor-score-api.onrender.com"; // TODO: make this configurable
+  const port = "http://mor-score-api.onrender.com";
+  //   const port = "https://mor-score-api.onrender.com"; // TODO: make this configurable
+
   const url = new URL(`${port}/save-your-text`);
   const request = {
     method: "POST",
@@ -17,19 +19,13 @@ export default async function postTextFileToDb({
     body: JSON.stringify({
       algorithm,
       text,
-      is_public: isPublic,
-      title,
+      isPublic,
     }),
   };
-  if (token) {
-    request.headers.Authorization = `Bearer ${token}`;
-  }
-
+  console.log("request", request);
   const response = await fetch(url, request);
   if (!response.ok) {
-    console.log("response is", await response.text());
-
-    throw new Error(await response.text());
+    throw new Error("error in request!");
   }
   const content = await response.text();
   const { category, score, offenses } =
