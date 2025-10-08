@@ -1,6 +1,5 @@
 import { Outlet } from "react-router";
-// TODO: import navbar
-
+import Navbar from "./Navbar";
 /** Todo: consider adding footer? */
 export default function BaseLayout() {
   return (
