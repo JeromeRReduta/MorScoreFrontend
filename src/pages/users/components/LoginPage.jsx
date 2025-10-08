@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router";
-import JwtStore from "../stores/JwtStore";
+import useJwt from "../stores/JwtStore";
 
 export default function LoginPage() {
-  const { response, loginAsync } = JwtStore();
+  const { response, loginAsync } = useJwt();
   const navigateTo = useNavigate();
   const handleLogin = async (formData) => {
-    await loginAsync({
+    loginAsync({
       email: formData.get("email"),
       password: formData.get("password"),
     });
@@ -13,6 +13,7 @@ export default function LoginPage() {
       navigateTo("/");
     }
   };
+  console.log("response is", response);
 
   let buttonMessage;
 

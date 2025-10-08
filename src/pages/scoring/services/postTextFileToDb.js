@@ -1,6 +1,12 @@
 import createMorScoreResultDTO from "../entities/MorScoreResult";
 
-export default async function postTextFileToDb({ algorithm, text, isPublic }) {
+export default async function postTextFileToDb({
+  algorithm,
+  text,
+  isPublic,
+  token,
+  title,
+}) {
   const port = "http://localhost:3000"; // TODO: make this configurable
   const url = new URL(`${port}/save-your-text`);
   const request = {
@@ -11,13 +17,19 @@ export default async function postTextFileToDb({ algorithm, text, isPublic }) {
     body: JSON.stringify({
       algorithm,
       text,
-      isPublic,
+      is_public: isPublic,
+      title,
     }),
   };
-  console.log("request", request);
+  if (token) {
+    request.headers.Authorization = `Bearer ${token}`;
+  }
+
   const response = await fetch(url, request);
   if (!response.ok) {
-    throw new Error("error in request!");
+    console.log("response is", await response.text());
+
+    throw new Error(await response.text());
   }
   const content = await response.text();
   const { category, score, offenses } =

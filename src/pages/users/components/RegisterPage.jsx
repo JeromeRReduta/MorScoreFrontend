@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router";
-import JwtStore from "../stores/JwtStore";
+import useJwt from "../stores/JwtStore";
 
 export default function RegisterPage() {
-  const { response, registerAsync } = JwtStore();
+  const { response, registerAsync } = useJwt();
   const navigateTo = useNavigate();
   const handleRegister = async (formData) => {
     console.log(

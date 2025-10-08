@@ -15,7 +15,8 @@ export default async function postTextFileForScoringAsync({ algorithm, text }) {
   };
   const response = await fetch(url, request);
   if (!response.ok) {
-    throw new Error("error in request!");
+    console.log("response is", response);
+    throw new Error(response);
   }
   const content = await response.text();
   const { category, score, offenses } =

@@ -22,13 +22,21 @@ export default function MorScoreResultStore() {
     setLoading(false);
   }
 
-  async function publishTextFileAsync(e, isPublic) {
+  async function publishTextFileAsync(e, isPublic, token, title) {
+    console.log("token here is", token);
     setLoading(true);
     const text = e.target.result;
+    console.log("name is", e);
     const algorithm = "ORIGINAL_PURITAN";
     let response;
     try {
-      const data = await postTextFileToDb({ algorithm, text, isPublic });
+      const data = await postTextFileToDb({
+        algorithm,
+        text,
+        isPublic,
+        token,
+        title,
+      });
       response = new ApiResponse({ success: true, data, error: null });
     } catch (e) {
       response = new ApiResponse({ success: false, data: null, error: e });

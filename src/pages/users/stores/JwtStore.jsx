@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import postAccInfoAsync from "../services/postAccInfoAsync";
-import ApiResponse from "../../../shared/entities/ApiResponse";
 
-export default function JwtStore() {
+const JwtContext = createContext();
+
+export function JwtProvider({ children }) {
   const [response, setResponse] = useState(null);
 
   const loginAsync = async ({ email, password }) => {
-    const response = await postAccInfoAsync({
+    const apiResponse = await postAccInfoAsync({
       accInfo: { email, password },
       endpoint: "/login",
     });
-    setResponse(response);
+    console.log("done");
+    console.log("response should become", apiResponse);
+    setResponse(apiResponse);
   };
 
   const registerAsync = async ({ email, name, password }) => {
@@ -23,5 +26,14 @@ export default function JwtStore() {
 
   const logout = () => setResponse(null);
 
-  return { response, loginAsync, registerAsync, logout };
+  const value = { response, loginAsync, registerAsync, logout };
+  return <JwtContext.Provider value={value}>{children}</JwtContext.Provider>;
+}
+
+export default function useJwt() {
+  const context = useContext(JwtContext);
+  if (!context) {
+    throw Error("No provider given for useJwt!");
+  }
+  return context;
 }
