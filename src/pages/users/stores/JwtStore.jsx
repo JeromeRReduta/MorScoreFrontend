@@ -4,48 +4,24 @@ import ApiResponse from "../../../shared/entities/ApiResponse";
 
 export default function JwtStore() {
   const [response, setResponse] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const loginAsync = async ({ email, password }) => {
-    setLoading(true);
-    let response;
-    try {
-      const data = await postAccInfoAsync({
-        accInfo: { email, password },
-        endpoint: "/login",
-      });
-      response = new ApiResponse({ success: true, data, error: null });
-    } catch (e) {
-      response = new ApiResponse({ success: false, data: null, error: e });
-    }
+    const response = await postAccInfoAsync({
+      accInfo: { email, password },
+      endpoint: "/login",
+    });
     setResponse(response);
-    setLoading(false);
   };
 
   const registerAsync = async ({ email, name, password }) => {
-    console.log("setting loading to true");
-
-    setLoading(true);
-    let response;
-    try {
-      console.log("beginning try clause");
-      const data = await postAccInfoAsync({
-        accInfo: { email, name, password },
-        endpoint: "/register",
-      });
-      console.log("data here is", data);
-      response = new ApiResponse({ success: true, data, error: null });
-    } catch (e) {
-      console.log("end up here w/ error", e);
-      response = new ApiResponse({ success: false, data: null, error: e });
-    }
-    console.log("response in store is", response);
+    const response = await postAccInfoAsync({
+      accInfo: { email, name, password },
+      endpoint: "/register",
+    });
     setResponse(response);
-    setLoading(false);
-    console.log("setting loading to false");
   };
 
   const logout = () => setResponse(null);
 
-  return { response, loading, loginAsync, registerAsync, logout };
+  return { response, loginAsync, registerAsync, logout };
 }

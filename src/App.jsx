@@ -8,7 +8,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<BaseLayout />}>
-        <Route index element={null} /> {/** Home page */}
+        <Route index element={<ScoringPage />} /> {/** Home page */}
         <Route path="*" element={<ErrorPage />} />
       </Route>
       <Route path="/get-your-morscore" element={<BaseLayout />}>

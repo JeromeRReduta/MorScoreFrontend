@@ -2,10 +2,10 @@ import { Link, useNavigate } from "react-router";
 import JwtStore from "../stores/JwtStore";
 
 export default function LoginPage() {
-  const { response, loading, loginAsync } = JwtStore();
+  const { response, loginAsync } = JwtStore();
   const navigateTo = useNavigate();
-  const handleLogin = (formData) => {
-    const response = loginAsync({
+  const handleLogin = async (formData) => {
+    await loginAsync({
       email: formData.get("email"),
       password: formData.get("password"),
     });
@@ -13,8 +13,16 @@ export default function LoginPage() {
       navigateTo("/");
     }
   };
-  const buttonMessage = loading ? "Logging in..." : "Log in";
 
+  let buttonMessage;
+
+  if (!response) {
+    buttonMessage = "Log In";
+  } else if (!response.success) {
+    buttonMessage = response.error.message;
+  } else {
+    buttonMessage = "Log In";
+  }
   return (
     <>
       <form action={handleLogin}>

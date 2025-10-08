@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router";
 import JwtStore from "../stores/JwtStore";
 
 export default function RegisterPage() {
-  const { response, loading, registerAsync } = JwtStore();
+  const { response, registerAsync } = JwtStore();
   const navigateTo = useNavigate();
   const handleRegister = async (formData) => {
     console.log(
@@ -21,7 +21,6 @@ export default function RegisterPage() {
       navigateTo("/");
     }
   };
-  const buttonMessage = loading ? "Registering..." : "Register";
 
   return (
     <>
@@ -35,7 +34,7 @@ export default function RegisterPage() {
         <label htmlFor="password">Password</label>
         <input type="password" name="password" autoComplete="on" required />
 
-        <button>{buttonMessage}</button>
+        <button>Register</button>
       </form>
       {response?.error && (
         <div className="error-message">{response.error.message}</div>
