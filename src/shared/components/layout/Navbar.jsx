@@ -1,3 +1,5 @@
+import "../../../base.css";
+import "../../design/navbar.css";
 import { Link } from "react-router";
 
 export default function Navbar() {
@@ -10,7 +12,7 @@ export default function Navbar() {
   //     */
   // }
   return (
-    <nav>
+    <nav className="default-navbar">
       <div className="left-navbar">
         <Link to="#">About</Link>
         <Link to="#">Get Your MorScore</Link>
