@@ -1,8 +1,14 @@
 import createMorScoreResultDTO from "../entities/MorScoreResult";
 
-export default async function postTextFileForScoringAsync({ algorithm, text }) {
+export default async function postTextFileToDb({
+  algorithm,
+  text,
+  isPublic,
+  token,
+  title,
+}) {
   const port = "https://mor-score-api.onrender.com"; // TODO: make this configurable
-  const url = new URL(`${port}/get-your-morscore`);
+  const url = new URL(`${port}/save-your-text`);
   const request = {
     method: "POST",
     headers: {
@@ -11,12 +17,19 @@ export default async function postTextFileForScoringAsync({ algorithm, text }) {
     body: JSON.stringify({
       algorithm,
       text,
+      is_public: isPublic,
+      title,
     }),
   };
+  if (token) {
+    request.headers.Authorization = `Bearer ${token}`;
+  }
+
   const response = await fetch(url, request);
   if (!response.ok) {
-    console.log("response is", response);
-    throw new Error(response);
+    console.log("response is", await response.text());
+
+    throw new Error(await response.text());
   }
   const content = await response.text();
   const { category, score, offenses } =

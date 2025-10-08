@@ -1,9 +1,13 @@
 import "../../../base.css";
 import "../design/scoring-page.css";
+import { useState } from "react";
 import MorScoreResultStore from "../stores/MorScoreResultStore.jsx";
+import JwtStore from "../../users/stores/JwtStore.jsx";
+import useJwt from "../../users/stores/JwtStore.jsx";
 
 export default function ScoringPage() {
-  const { response, loading, scoreTextFileAsync } = MorScoreResultStore();
+  const { response, loading, scoreTextFileAsync, publishTextFileAsync } =
+    MorScoreResultStore();
   return (
     <>
       <OutputMessage
@@ -11,7 +15,10 @@ export default function ScoringPage() {
         error={response?.error}
         loading={loading}
       />
-      <FileInput scoreTextFileAsync={scoreTextFileAsync} />
+      <FileInput
+        scoreTextFileAsync={scoreTextFileAsync}
+        publishTextFileAsync={publishTextFileAsync}
+      />
     </>
   );
 }
@@ -41,11 +48,21 @@ function OutputMessage({ morScoreResult, error, loading }) {
   );
 }
 
-function FileInput({ scoreTextFileAsync }) {
+function FileInput({ scoreTextFileAsync, publishTextFileAsync }) {
+  const [shouldSave, setShouldSave] = useState(false);
+  const [isPublic, setIsPublic] = useState(false);
+  const [fileName, setFileName] = useState(null);
+  const { response } = useJwt();
+  const token = response?.data;
+  console.log(`data:
+    response: ${response}
+    isPublic: ${isPublic}
+    token: ${token}
+    `);
   const fileData = new FileReader();
-  fileData.onloadend = async (e) => {
-    await scoreTextFileAsync(e);
-  };
+  fileData.onloadend = shouldSave
+    ? async (e) => await publishTextFileAsync(e, isPublic, token, fileName)
+    : async (e) => await scoreTextFileAsync(e);
   return (
     <>
       <div className="input-here">INPUT YOUR TEXT FILE HERE</div>
@@ -53,8 +70,27 @@ function FileInput({ scoreTextFileAsync }) {
         type="file"
         accept=".txt"
         onChange={(e) => {
+          setFileName(e.target.files[0].name);
           fileData.readAsText(e.target.files[0]);
         }}
+      />
+      <input
+        type="checkbox"
+        className="should-save"
+        checked={shouldSave}
+        onChange={(e) => {
+          if (!e.target.checked) {
+            // this allows "is public" box to uncheck itself when you uncheck "should save" checkbox
+            setIsPublic(false);
+          }
+          setShouldSave(e.target.checked);
+        }}
+      />
+      <input
+        type="checkbox"
+        className="is-public"
+        checked={isPublic}
+        onChange={(e) => setIsPublic(e.target.checked)}
       />
     </>
   );
