@@ -3,8 +3,11 @@ import postTextFileForScoringAsync from "../services/postTextFileForScoringAsync
 export default function FileInput() {
   const fileData = new FileReader();
   fileData.onloadend = async (e) => {
-    const text = e.target.result;
-    postTextFileForScoringAsync({ algorithm: "ORIGINAL_PURITAN", text });
+    const data = await postTextFileForScoringAsync({
+      algorithm: "ORIGINAL_PURITAN",
+      text: e.target.result,
+    });
+    console.log("data", data);
   };
 
   return (
